@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/login', function () {
+    return view('users.login');
 });
+Route::get('/sgin_up',function(){
+    return view('users.sgin_up');
+});
+
+Route::resource('users','UsersController');
+Route::post('sginup','UsersController@sginUp') -> name('users.sginup');
