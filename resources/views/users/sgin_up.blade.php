@@ -52,7 +52,7 @@
           <input type="text" id="name" name="user_name" required>
           
           <label for="mail">邮&nbsp;箱:</label>
-          <input type="email" id="mail" name="user_email" required>
+          <input type="email" id="email" name="user_email" required>
           
           <label for="password">密&nbsp;码:</label>
           <input type="password" id="password" name="password" required>

@@ -15,7 +15,9 @@ class UsersController extends Controller
     {
         return view('users.login');
     }
-
+    /**
+     * 用户注册
+     */
     public function sginUp(Request $request){
         //验证规则
         $validatedData = $request->validate([
@@ -27,12 +29,13 @@ class UsersController extends Controller
             'password' => 'required|confirmed|max:16',
         ]);
         //从请求中获取email
-        $email = $request -> input('email');
+        $email = $request -> input('user_email');
         //查询该email在数据库中是否存在
         $email = DB::select("select * from users where email = ?",[$email]);
         //如果为空则进行注册
         if(empty($email)){
             $name = $request -> input("user_name");
+            $email = $request -> input('user_email');
             $password = $request -> input("password");
             $signature = $request -> input("user_signature");
             $address = $request -> input("user_address");
@@ -40,8 +43,8 @@ class UsersController extends Controller
             $class = $request -> input("user_class");
             $year = $request -> input("user_year");
             $sex = $request -> input("user_sex");
-            $avatar = null;
-            DB::insert("insert into users ( name,email,password,sex,signature,address,college,class,avatar) values (?,?,?,?,?,?,?,?,?)",[$name,$email,$password,$sex,$signature,$address,$college,$class + $year,$avatar]);
+            $class = $class.$year;
+            DB::insert("insert into users (name,email,password,sex,signature,address,college,class) values (?,?,?,?,?,?,?,?)",[$name,$email,$password,$sex,$signature,$address,$college,$class]);
             session() -> flash('success','注册成功');
             return redirect() -> action("UsersController@index");
         }else{
@@ -76,12 +79,14 @@ class UsersController extends Controller
         ]);
         //从请求中获取email
         $email = $request -> input('email');
+        
         //查询该email在数据库中是否存在
         $email1 = DB::select("select * from users where email = ?",[$email]);
         //从请求中获取password
         $password = $request -> input('password');
+        
         //通过Email查询密码
-        $password1 = DB::select("select password from users where password = ?",[$email]);
+        $password1 = DB::select("select password from users where email = ?",[$email]);
         //取出查询到的密码
         foreach($password1 as $key){
             $password1 =  $key -> password;
@@ -89,7 +94,8 @@ class UsersController extends Controller
         //Email存在并且密码匹配则登陆成功
         if((!empty($email1))&&($password == $password1)){
             session() -> flash('success','登陆成功');
-            return redirect() ->route('/');
+            // return redirect() ->route('');
+            return "登陆成功！";
         }else{
             session() -> flash('warning','用户名或密码输入错误');
             return back();
