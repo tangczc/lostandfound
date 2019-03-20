@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
+use App\Models\User;
+
 class UsersController extends Controller
 {
     /**
@@ -36,7 +39,7 @@ class UsersController extends Controller
         if(empty($email)){
             $name = $request -> input("user_name");
             $email = $request -> input('user_email');
-            $password = $request -> input("password");
+            $password = bcrypt($request->password);
             $signature = $request -> input("user_signature");
             $address = $request -> input("user_address");
             $college = $request -> input("user_college");
@@ -71,34 +74,16 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         //验证规则
-        $validatedData = $request->validate([
-            //邮箱格式为Email不能为空最大255
+        $credentials = $this->validate($request, [
             'email' => 'required|email|max:255',
-            //密码不能为空最大16
-            'password' => 'required|max:16',
+            'password' => 'required'
         ]);
-        //从请求中获取email
-        $email = $request -> input('email');
-        
-        //查询该email在数据库中是否存在
-        $email1 = DB::select("select * from users where email = ?",[$email]);
-        //从请求中获取password
-        $password = $request -> input('password');
-        
-        //通过Email查询密码
-        $password1 = DB::select("select password from users where email = ?",[$email]);
-        //取出查询到的密码
-        foreach($password1 as $key){
-            $password1 =  $key -> password;
-        }
-        //Email存在并且密码匹配则登陆成功
-        if((!empty($email1))&&($password == $password1)){
-            session() -> flash('success','登陆成功');
-            // return redirect() ->route('');
-            return "登陆成功！";
-        }else{
-            session() -> flash('warning','用户名或密码输入错误');
-            return back();
+        if (Auth::attempt($credentials)) {
+            session()->flash('success', '欢迎回来！');
+            return redirect()->route('users.show', [Auth::user()]);
+        } else {
+            session()->flash('danger', '很抱歉，您的邮箱和密码不匹配');
+            return redirect()->back();
         }
 
     }
@@ -109,9 +94,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return view('users.show', compact('user'));
     }
 
     /**
