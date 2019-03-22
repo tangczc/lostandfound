@@ -34,4 +34,33 @@
             <p><a href="#">个人信息</a></p>
         </div>
     </header>
+    <div class="user-info">
+        @if ($user -> avatar != null)
+            <img src="{{$user -> avatar}}" class="avatar"/>
+        @else
+            <img src="{{asset('/img/default.jpg')}}" class="avatar"/>
+        @endif
+        <h1>{{$user -> name}}</h1>
+        @if ($user -> signature != null)
+            <p>{{$user -> signature}}</p>
+        @else
+            <p></p>
+        @endif
+        <div style="padding-top:30px;">
+            <img src="https://img.icons8.com/ultraviolet/32/000000/gender-neutral-user.png" class="img-class"/>
+            <span style="margin-left:10px;">{{$user -> class}}</span>
+        </div>
+        <div style="padding-top:20px;">
+            <img src="https://img.icons8.com/color/48/000000/flow-chart.png" class="img-class" />
+            <span style="margin-left:10px;">{{$user -> college}}</span>
+        </div>
+        <div style="padding-top:80px;">
+            <img src="https://img.icons8.com/color/32/000000/address.png" class="img-class"/>   
+            <span style="margin-left:10px;">{{$user -> address}}</span> 
+        </div>
+        <div style="padding-top:30px;">
+            <img src="{{asset('/img/line.jpg')}}" style="margin-left:30px"/>
+            <img src="{{asset('/img/line.jpg')}}" style="margin-left:30px;margin-top:100px;"/>
+        </div>
+    </div>
 @stop
