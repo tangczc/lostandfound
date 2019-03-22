@@ -7,7 +7,7 @@
     <header>
         <div class="header1">
             <p>首页</p>
-            <form action="" method="get" class="form">
+            <form action="#" method="get" class="form">
                 <div class="row" style="margin-left:70%;">
                     <div class="col-md-12 ">
                         <div class="input-group">
