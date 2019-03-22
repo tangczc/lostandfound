@@ -11,7 +11,7 @@
                 <div class="row" style="margin-left:70%;">
                     <div class="col-md-12 ">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="查找物品">
+                            <input type="text" class="form-control" placeholder="查找物品" name="search">
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="submit">搜索</button>
                             </span>
