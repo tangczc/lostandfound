@@ -73,6 +73,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        $tpye = 0;
         //验证规则
         $credentials = $this->validate($request, [
             'email' => 'required|email|max:255',
@@ -96,8 +97,55 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        // return "s";
-        return view('mains.show', compact('user'));
+        $find = DB::select("select count(*) from informations where type = 1");
+        $lost = DB::select("select count(*) from informations where type = 0");
+        $articles = DB::select("select * from informations");
+        return view('mains.show', compact('user','articles','find','lost'));
+    }
+    /**
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function show_add(Request $request){
+        $tpye = $request -> id;
+            $user = DB::select("select * from users where id = ?",[$tpye]);
+            foreach($user as $key){
+                $user = $key;
+        }
+        return view('mains.add', compact('user','tpye')); 
+    }
+
+    /**
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function show_article(Request $request){
+        
+        $tpye = $request -> id;
+        $user = DB::select("select * from users where id = ?",[$tpye]);
+        $articles = DB::select("select * from informations");
+        $find = DB::select("select count(*) from informations where type = 1");
+        $lost = DB::select("select count(*) from informations where type = 0"); 
+        foreach($user as $key){
+                $user = $key;
+        }
+        return view('mains.show', compact('user','articles','find','lost'));
+    }
+
+    /**
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function user_info(Request $request){
+        $id = $request -> id;
+            $user = DB::select("select * from users where id = ?",[$id]);
+            foreach($user as $key){
+                $user = $key;
+        }
+        return view('mains.info', compact('user')); 
     }
 
     /**

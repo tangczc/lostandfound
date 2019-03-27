@@ -1,28 +1,16 @@
 @extends('layouts.default')
-@section('title', '我的首页')
+@section('title', '个人信息')
 
 
 @section('centent')
 
     <header>
         <div class="header1">
-            <p>首页</p>
-            <form action="#" method="get" class="form">
-                <div class="row" style="margin-left:70%;">
-                    <div class="col-md-12 ">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="查找物品" name="search">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="submit">搜索</button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            <p>个人信息</p>
         </div>
         <div class="header1-left">
             <img src="{{asset('/img/title.png')}}" style="height:60px;width:60px; margin-left:20px;margin-top:3px;" /> 
-            <h2 class="title" style="color:#ffff;margin-top:-49px;margin-left:100px;">我的首页</h2>
+            <h2 class="title" style="color:#ffff;margin-top:-49px;margin-left:100px;">个人信息</h2>
         </div>
 
         <div class="left">
@@ -63,9 +51,4 @@
             <img src="{{asset('/img/line.jpg')}}" style="margin-left:30px;margin-top:100px;"/>
         </div>
     </div>
-    <div class="article">
-        
-    </div>
-    
-
 @stop

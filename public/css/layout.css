@@ -120,4 +120,10 @@ footer{
     color: #A5ACB3;
 }
 
-
+.article{
+    height: 750px;
+    width: 1000px;
+    background-color: #ffff;
+    margin-top: -750px;
+    margin-left: 750px;
+}

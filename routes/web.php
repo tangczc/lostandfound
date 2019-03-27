@@ -20,3 +20,6 @@ Route::get('/sgin_up',function(){
 
 Route::resource('users','UsersController');
 Route::post('sginup','UsersController@sginUp') -> name('users.sginup');
+Route::get('add_artcle/{id}','UsersController@show_add') -> name('article_add');
+Route::get('show_article/{id}','UsersController@show_article') -> name('show_article');
+Route::get('user_info/{id}','UsersController@user_info') -> name('user_info');
