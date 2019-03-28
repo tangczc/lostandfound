@@ -10,9 +10,6 @@ use App\Models\User;
 class InformationsController extends Controller
 {
 
-
-
-
     /**
      * 添加文章
      *

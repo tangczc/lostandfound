@@ -10,12 +10,6 @@ use App\Models\User;
 class UsersController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth', [            
-            'except' => ['show','sgin_up']
-        ]);
-    }
 
     /**
      * Display a listing of the resource.
