@@ -11,14 +11,14 @@
 |
 */
 
-Route::get('/login', function () {
+Route::get('/', function () {
     return view('users.login');
 });
-Route::get('/sgin_up',function(){
-    return view('users.sgin_up');
-});
+Route::get('/sgin_up','UsersController@sgin_up');
+
 
 Route::resource('users','UsersController');
+Route::resource('articles','InformationsController');
 Route::post('sginup','UsersController@sginUp') -> name('users.sginup');
 Route::get('add_artcle/{id}','UsersController@show_add') -> name('article_add');
 Route::get('show_article/{id}','UsersController@show_article') -> name('show_article');

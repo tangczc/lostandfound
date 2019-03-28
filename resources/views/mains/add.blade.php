@@ -51,5 +51,35 @@
             <img src="{{asset('/img/line.jpg')}}" style="margin-left:30px;margin-top:100px;"/>
         </div>
     </div>
-    
+    <div class="article">
+        <h1 style="text-align:center;">发布信息</h1>
+        <form action="{{route('articles.store')}}" method="post" enctype ="multipart/form-data">
+        <input type="hidden" name="user_id" value="{{$user -> id}}"/>
+            {{ csrf_field()}}
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="input-group" id="input-group" style="width:500px;">
+                        <h2>标题：</h2>
+                        <input type="text" class="form-control" placeholder="请填写标题" name="title" required>
+                    </div>
+                    <div class="input-group" id="input-group"> 
+                         <h2>描述：</h2>
+                        <textarea name="informations" style="width:500px;height:200px;" type="text" class="form-control" placeholder="在填写内容的时候务必留下您的联系方式" name="title" required></textarea>
+                    </div>
+                    <div class="input-group" id="input-group">
+                        <input type="radio" name="type" value="1" checked>拾物
+                        <input type="radio" name="type" value="0">失物
+                    </div>
+                    &nbsp;
+                    <div class="input-group">
+                        <input type="file" name="image"/>
+                    </div>
+                </div>
+                
+            </div>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" id="btn" type="submit">添加</button>
+                </span>
+        </form>
+    </div>
 @stop

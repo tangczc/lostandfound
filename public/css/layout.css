@@ -126,4 +126,34 @@ footer{
     background-color: #ffff;
     margin-top: -750px;
     margin-left: 750px;
+    overflow:auto;
+}
+.article-title{
+    padding-top:10px;
+    padding-left: 20px;
+    color: #A5ACB3;
+}
+.article-info{
+    padding-top:10px;
+    padding-left: 20px;
+    
+}
+.article-info hr{
+    color: #A5ACB3;
+}
+.article-info image{
+    height: 50px;
+    width: 50px;
+}
+
+.article form{
+    margin-left: 200px;
+    
+}
+#input-group{
+    margin-top: 30px;
+}
+#btn{
+    margin-top: 30px;
+    width: 200px;
 }

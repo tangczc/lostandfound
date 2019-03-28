@@ -9,6 +9,14 @@ use App\Models\User;
 
 class UsersController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth', [            
+            'except' => ['show','sgin_up']
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,6 +25,9 @@ class UsersController extends Controller
     public function index()
     {
         return view('users.login');
+    }
+    public function sgin_up(){
+        return view('users.sgin_up');
     }
     /**
      * 用户注册
@@ -56,16 +67,6 @@ class UsersController extends Controller
         }
     }
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * 用户登录
      *
      * @param  \Illuminate\Http\Request  $request
@@ -89,6 +90,7 @@ class UsersController extends Controller
 
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -97,9 +99,15 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        $find = DB::select("select count(*) from informations where type = 1");
-        $lost = DB::select("select count(*) from informations where type = 0");
-        $articles = DB::select("select * from informations");
+        $find = DB::select("select count(*) as count from informations where type = 1");
+        $lost = DB::select("select count(*) as count from informations where type = 0");
+        foreach($find as $key){
+            $find = $key -> count; 
+        }
+        foreach($lost as $key){
+            $lost = $key -> count; 
+        }
+        $articles = DB::select("select * from informations order by created_at desc");
         return view('mains.show', compact('user','articles','find','lost'));
     }
     /**
@@ -126,8 +134,14 @@ class UsersController extends Controller
         $tpye = $request -> id;
         $user = DB::select("select * from users where id = ?",[$tpye]);
         $articles = DB::select("select * from informations");
-        $find = DB::select("select count(*) from informations where type = 1");
-        $lost = DB::select("select count(*) from informations where type = 0"); 
+        $find = DB::select("select count(*) as count from informations where type = 1");
+        $lost = DB::select("select count(*) as count from informations where type = 0"); 
+        foreach($find as $key){
+            $find = $key -> count; 
+        }
+        foreach($lost as $key){
+            $lost = $key -> count; 
+        }
         foreach($user as $key){
                 $user = $key;
         }
@@ -148,37 +162,4 @@ class UsersController extends Controller
         return view('mains.info', compact('user')); 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

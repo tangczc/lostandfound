@@ -7,7 +7,8 @@
     <header>
         <div class="header1">
             <p>首页</p>
-            <form action="#" method="get" class="form">
+            <!-- <form action="#" method="get" class="form">
+            {{ csrf_field()}}
                 <div class="row" style="margin-left:70%;">
                     <div class="col-md-12 ">
                         <div class="input-group">
@@ -18,7 +19,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
+            </form> -->
         </div>
         <div class="header1-left">
             <img src="{{asset('/img/title.png')}}" style="height:60px;width:60px; margin-left:20px;margin-top:3px;" /> 
@@ -64,7 +65,21 @@
         </div>
     </div>
     <div class="article">
-        
+        <div class="article-title">
+            <span>失物({{ $lost }})</span>&nbsp;&nbsp;
+            <span>拾物({{ $find }})</span>
+        </div>
+
+        <div class="article-info">
+            @foreach( $articles as $article)
+                <h1>{{$article -> title}}</h1>
+                <p>描述</p>
+                <p>{{ $article -> describ}}</p>
+                <img src="{{asset('photo/'.$article -> image_url)}}"/>
+                <hr/>
+            @endforeach
+        </div>
+
     </div>
     
 
