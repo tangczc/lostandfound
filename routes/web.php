@@ -16,9 +16,9 @@ Route::get('/', function () {
 });
 Route::get('/sgin_up','UsersController@sgin_up');
 
-Route::get('/lgoin', function () {
+Route::get('/login', function () {
     return view('users.login');
-});
+}) -> name('login');
 
 Route::resource('users','UsersController');
 Route::resource('articles','InformationsController');
